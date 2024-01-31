@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,11 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'khalifa Main',
+      theme: FlexThemeData.light(scheme: FlexScheme.greenM3),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.greenM3),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
