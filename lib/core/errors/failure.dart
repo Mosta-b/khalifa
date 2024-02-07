@@ -83,3 +83,20 @@ class RemoteCloudFailure extends Failure {
     return RemoteCloudFailure(exception: Exception(), message: 'Cloud Error');
   }
 }
+
+class LocalDataBaseFailure extends Failure {
+  const LocalDataBaseFailure({
+    required super.message,
+    required super.exception,
+  });
+  static Failure handleLocalDataBaseFailure(Exception exception) {
+    log('$exception => LocalDataBaseFailure exception');
+    return LocalDataBaseFailure(exception: exception, message: 'sqlite Error');
+  }
+
+  static Failure handleLocalDataBaseObjectFailure(Object exception) {
+    log('$exception => LocalDataBaseFailure Object');
+    return LocalDataBaseFailure(
+        exception: Exception(), message: 'sqlite Error');
+  }
+}

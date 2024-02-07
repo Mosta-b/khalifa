@@ -4,8 +4,7 @@ import '../../data/model/user_model.dart';
 abstract class AuthenticationRepository {
   ResultInitialize initialize();
   UserModel? get currentUser;
-  ResultVoid createUser({
-    required String userName,
+  ResultFuture<int> createUser({
     required String email,
     required String password,
   });
