@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:khalifa/core/widgets/buttons/normal_button.dart';
 import 'package:khalifa/src/authentication/presentation/bloc/local_auth_bloc.dart';
 
+import 'core/constant/Routes/routes.dart';
+import 'core/constant/Routes/routes_manager.dart';
 import 'core/services/injection_container.dart';
 
 void main() async {
@@ -37,6 +39,7 @@ class Khalifa extends StatelessWidget {
         scheme: FlexScheme.greenM3,
         textTheme: GoogleFonts.notoSansArabicTextTheme(),
       ),
+      routes: appRoutes,
       home: const WelcomePage(),
     );
   }
@@ -64,7 +67,9 @@ class WelcomePage extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 40),
             child: NormalButton(
               title: "ادخل المجلس",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(signInPage);
+              },
               mainStyle: false,
             ),
           ),
