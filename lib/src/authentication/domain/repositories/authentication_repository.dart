@@ -4,6 +4,8 @@ import '../../data/model/user_model.dart';
 abstract class AuthenticationRepository {
   ResultInitialize initialize();
   UserModel? get currentUser;
+
+  ResultFuture<bool> getUser();
   ResultFuture<int> createUser({
     required String email,
     required String password,
@@ -24,4 +26,6 @@ abstract class AuthenticationRepository {
     String? userName,
     String? email,
   });
+
+  ResultFuture<bool> requestBiometricsAuth();
 }

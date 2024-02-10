@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:khalifa/src/authentication/data/datasource/authentication_biometrics_data_source.dart';
 import 'package:khalifa/src/authentication/data/model/user_db.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -13,9 +16,12 @@ class AuthenticationRepositoryImplementation
   const AuthenticationRepositoryImplementation(
     this._remoteDataSource,
     this._localDataSource,
+    this._authenticationBiometricsDataSource,
   );
   final AuthnAuthenticationRemoteDataSourceContract _remoteDataSource;
   final LocalDataSource _localDataSource;
+
+  final AuthenticationBiometricsDataSource _authenticationBiometricsDataSource;
   @override
   UserModel? get currentUser => _remoteDataSource.getUser();
 
@@ -41,6 +47,7 @@ class AuthenticationRepositoryImplementation
       final int number = await _localDataSource.signUp(user);
       return Right(number);
     } on Exception catch (e) {
+      log("i got error here");
       return Left(LocalDataBaseFailure.handleLocalDataBaseFailure(e));
     } catch (e) {
       return Left(LocalDataBaseFailure.handleLocalDataBaseObjectFailure(e));
@@ -115,6 +122,31 @@ class AuthenticationRepositoryImplementation
       return Right(newUser);
     } on Exception catch (e) {
       return Left(FirebaseFailure.handleFirebaseException(e));
+    }
+  }
+
+  @override
+  ResultFuture<bool> getUser() async {
+    try {
+      final result = await _localDataSource.getUser();
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(LocalDataBaseFailure.handleLocalDataBaseFailure(e));
+    } catch (e) {
+      return Left(LocalDataBaseFailure.handleLocalDataBaseObjectFailure(e));
+    }
+  }
+
+  @override
+  ResultFuture<bool> requestBiometricsAuth() async {
+    try {
+      final result =
+          await _authenticationBiometricsDataSource.requestBiometricsAuth();
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(LocalDataBaseFailure.handleLocalDataBaseFailure(e));
+    } catch (e) {
+      return Left(LocalDataBaseFailure.handleLocalDataBaseObjectFailure(e));
     }
   }
 }

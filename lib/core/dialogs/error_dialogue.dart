@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'generic_dialogue.dart';
 
 Future<void> showErrorDialog(
@@ -10,6 +11,6 @@ Future<void> showErrorDialog(
     context: context,
     title: title,
     content: content,
-    optionBuilder: () => {'Oui': null},
+    optionBuilder: () => {'Ok': null},
   );
 }

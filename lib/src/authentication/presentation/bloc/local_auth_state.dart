@@ -14,7 +14,7 @@ class LocalAuthInitial extends LocalAuthState {
   const LocalAuthInitial() : super(isLoading: false, exception: null);
 }
 
-class LocalAuthStatLoggedIn extends LocalAuthState {
+class LocalAuthStatLoggedIn extends LocalAuthState with EquatableMixin {
   final UserDB user;
 
   const LocalAuthStatLoggedIn({
@@ -25,9 +25,11 @@ class LocalAuthStatLoggedIn extends LocalAuthState {
           isLoading: isLoading ?? false,
           exception: exception,
         );
+  @override
+  List<Object?> get props => [isLoading, exception, user];
 }
 
-class LocalAuthStateLoggedOut extends LocalAuthState {
+class LocalAuthStateLoggedOut extends LocalAuthState with EquatableMixin {
   const LocalAuthStateLoggedOut({
     required bool? isLoading,
     required Failure? exception,
@@ -35,4 +37,6 @@ class LocalAuthStateLoggedOut extends LocalAuthState {
           isLoading: isLoading ?? false,
           exception: exception,
         );
+  @override
+  List<Object?> get props => [isLoading, exception];
 }

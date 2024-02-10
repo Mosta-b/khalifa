@@ -1,9 +1,12 @@
-import '../../data/model/user_model.dart';
+import 'package:khalifa/core/usecase/use_case.dart';
+import 'package:khalifa/core/utils/typedef.dart';
+
 import '../repositories/authentication_repository.dart';
 
-class GetUser {
-  final AuthenticationRepository _repository;
-  const GetUser(this._repository);
+class GetUser extends UseCaseWithoutParams<bool> {
+  final AuthenticationRepository authenticationRepository;
 
-  UserModel? call() => _repository.currentUser;
+  GetUser(this.authenticationRepository);
+  @override
+  ResultFuture<bool> call() => authenticationRepository.getUser();
 }
