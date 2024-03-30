@@ -53,6 +53,9 @@ dependencies:
   provider: ^6.1.1
   hijri: ^3.0.0
   simple_localization: ^2.0.0
+  http: ^1.2.0
+  html: ^0.15.4
+  pdfx: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +83,7 @@ flutter:
   assets:
      - assets/images/
      - assets/logo/
+     - assets/books/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
