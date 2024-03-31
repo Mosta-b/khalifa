@@ -5,8 +5,10 @@ import 'package:khalifa/core/constant/phone/phone_size.dart';
 import 'package:khalifa/core/constant/theme/app_fonts.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
 
+import '../../../core/utils/book_names_manger.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../../core/widgets/cards/issues_card.dart';
+import '../book_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -125,7 +127,16 @@ class HomeView extends StatelessWidget {
                       child: Card(
                         color: Colors.blue,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const BookView(
+                                  bookName: BookNamesManger.godIsGreat,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),

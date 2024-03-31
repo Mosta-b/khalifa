@@ -46,7 +46,7 @@ dependencies:
   google_sign_in: ^6.2.1
   sqflite: ^2.3.2
   intl: ^0.17.0-nullsafety.2
-  path: ^1.8.3
+  path: ^1.9.0
   bloc: ^8.1.2
   google_fonts: ^6.1.0
   local_auth: ^2.1.8
@@ -55,7 +55,10 @@ dependencies:
   simple_localization: ^2.0.0
   http: ^1.2.0
   html: ^0.15.4
-  pdfx: ^2.6.0
+
+  path_provider: ^2.1.2
+  flutter_cached_pdfview: ^0.4.2
+
 
 dev_dependencies:
   flutter_test:
