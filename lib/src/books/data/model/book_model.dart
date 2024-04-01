@@ -10,14 +10,15 @@ class BookModel extends BookEntity {
     return BookEntity(name: name, path: path);
   }
 
-  BookModel convertToBookModel({required BookEntity bookEntity}) {
+  static BookModel convertToBookModel({required BookEntity bookEntity}) {
     return BookModel(
       name: bookEntity.name,
       path: bookEntity.path,
     );
   }
 
-  List<BookEntity> convertListToBookEntity({required List<BookModel> list}) {
+  static List<BookEntity> convertListToBookEntity(
+      {required List<BookModel> list}) {
     final List<BookEntity> listToConvert = [];
     for (var i = 0; i <= list.length; i++) {
       listToConvert.add(BookEntity(name: list[i].name, path: list[i].path));
@@ -25,7 +26,8 @@ class BookModel extends BookEntity {
     return listToConvert;
   }
 
-  List<BookModel> convertListToBookModel({required List<BookEntity> list}) {
+  static List<BookModel> convertListToBookModel(
+      {required List<BookEntity> list}) {
     final List<BookModel> listToConvert = [];
     for (var i = 0; i <= list.length; i++) {
       listToConvert.add(BookModel(name: list[i].name, path: list[i].path));

@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:khalifa/core/constant/phone/phone_size.dart';
 import 'package:khalifa/core/constant/theme/app_fonts.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
+import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 
 import '../../../core/utils/book_names_manger.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../../core/widgets/cards/issues_card.dart';
-import '../book_view.dart';
+import '../../books/presentation/views/book_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -19,7 +21,7 @@ class HomeView extends StatelessWidget {
     String date =
         "${islamicToday.getDayName()}, ${islamicToday.longMonthName} ${islamicToday.hDay.toString()}, ${islamicToday.hYear} ه ";
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       child: SizedBox(
         width: double.infinity,
         height: getScreenHeight(context),
@@ -128,6 +130,11 @@ class HomeView extends StatelessWidget {
                         color: Colors.blue,
                         child: InkWell(
                           onTap: () {
+                            context
+                                .read<BooksBloc>()
+                                .add(const BooksEventGetLastSavedPage(
+                                  bookName: BookNamesManger.godIsGreat,
+                                ));
                             Navigator.push(
                               context,
                               MaterialPageRoute(

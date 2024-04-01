@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:khalifa/core/dialogs/error_dialogue.dart';
 import 'package:khalifa/src/authentication/presentation/bloc/local_auth_bloc.dart';
 import 'package:khalifa/src/authentication/presentation/views/sign_in.dart';
+import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 import 'package:khalifa/src/views/main_view.dart';
 import 'package:khalifa/src/views/welcome_view.dart';
 
@@ -22,6 +23,9 @@ void main() async {
         BlocProvider<LocalAuthBloc>(
           create: (context) =>
               sl<LocalAuthBloc>()..add(const LocalAuthEventGetUser()),
+        ),
+        BlocProvider<BooksBloc>(
+          create: (context) => sl<BooksBloc>()..add(BooksEventGetAllBooks()),
         ),
       ],
       child: const Khalifa(),

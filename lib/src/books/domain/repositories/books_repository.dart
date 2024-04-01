@@ -5,4 +5,9 @@ abstract class BooksRepository {
   ResultFuture<List<BookEntity>> getAllBooks();
 
   ResultFuture<int> getLastPageSaved({required String bookName});
+
+  ResultFuture<void> saveLastPage({
+    required int lastPage,
+    required String bookName,
+  });
 }

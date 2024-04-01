@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'auth_exceptions.dart';
+import 'book_exception.dart';
 
 abstract class Failure extends Equatable implements Exception {
   final String message;
@@ -73,14 +74,22 @@ class FirebaseFailure extends Failure {
   }
 }
 
-class RemoteCloudFailure extends Failure {
-  const RemoteCloudFailure({
+class LocalBooksDataBaseFailure extends Failure {
+  const LocalBooksDataBaseFailure({
     required super.message,
     required super.exception,
   });
-  static Failure handleRemoteCloudFailure(Exception exception) {
-    log('$exception => RemoteCloudFailure');
-    return RemoteCloudFailure(exception: Exception(), message: 'Cloud Error');
+
+  static Failure handleLocalBooksDataBaseFailure(Exception exception) {
+    return LocalBooksDataBaseFailure(
+        message: "Local Books Data Base Error", exception: exception);
+  }
+
+  static Failure handleLocalBooksDataBaseObjectFailure(Object exception) {
+    return LocalBooksDataBaseFailure(
+      message: "Local Books Data Base Object Error => $exception ",
+      exception: BooksGenericException(),
+    );
   }
 }
 

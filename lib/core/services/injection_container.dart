@@ -8,8 +8,15 @@ import 'package:khalifa/src/authentication/domain/usecases/create_user.dart';
 import 'package:khalifa/src/authentication/domain/usecases/get_user.dart';
 import 'package:khalifa/src/authentication/domain/usecases/login.dart';
 import 'package:khalifa/src/authentication/presentation/bloc/local_auth_bloc.dart';
+import 'package:khalifa/src/books/data/datasource/local_book_source.dart';
+import 'package:khalifa/src/books/domain/repositories/books_repository.dart';
+import 'package:khalifa/src/books/domain/usecases/get_all_books.dart';
+import 'package:khalifa/src/books/domain/usecases/get_last_page_saved.dart';
+import 'package:khalifa/src/books/domain/usecases/save_last_page.dart';
+import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 
 import '../../src/authentication/data/datasource/authentication_local_data_source.dart';
+import '../../src/books/data/repositories/book_repository_implementation.dart';
 
 final sl = GetIt.instance;
 
@@ -43,4 +50,23 @@ Future<void> init() async {
         () => LocalDataBaseImplementation())
     ..registerLazySingleton<AuthenticationBiometricsDataSource>(
         () => AuthenticationBiometricsDataSourceImplementation());
+  sl
+    // register Bloc
+    ..registerFactory(
+      () => BooksBloc(
+        getAllBooks: sl(),
+        getLastPageSaved: sl(),
+        saveLastBook: sl(),
+      ),
+    )
+    // register usecase
+    ..registerLazySingleton(() => GetAllBooks(sl()))
+    ..registerLazySingleton(() => GetLastPageSaved(sl()))
+    ..registerLazySingleton(() => SaveLastBook(sl()))
+    // repository
+    ..registerLazySingleton<BooksRepository>(
+        () => BookRepositoryImplementation(localBookSource: sl()))
+    // Data Source
+    ..registerLazySingleton<LocalBookSource>(
+        () => LocalBookSourceImplementation());
 }

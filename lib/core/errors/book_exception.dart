@@ -1,0 +1,1 @@
+class BooksGenericException implements Exception {}
