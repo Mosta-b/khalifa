@@ -11,10 +11,10 @@ class BookView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BookViewState createState() => _BookViewState();
+  BookViewState createState() => BookViewState();
 }
 
-class _BookViewState extends State<BookView> {
+class BookViewState extends State<BookView> {
   @override
   Widget build(BuildContext context) {
     return PDFViewerFromAsset(
@@ -62,7 +62,7 @@ class PDFViewerFromAsset extends StatelessWidget {
         enableSwipe: true,
         swipeHorizontal: false,
         autoSpacing: false,
-        pageFling: false,
+        pageFling: true,
         onPageChanged: (int? current, int? total) =>
             _pageCountController.add('${current! + 1} - $total'),
         onViewCreated: (PDFViewController pdfViewController) async {
@@ -75,6 +75,7 @@ class PDFViewerFromAsset extends StatelessWidget {
         pdfAssetPath,
         errorWidget: (dynamic error) => Center(child: Text(error.toString())),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FutureBuilder<PDFViewController>(
         future: _pdfViewController.future,
         builder: (_, AsyncSnapshot<PDFViewController> snapshot) {
@@ -88,7 +89,8 @@ class PDFViewerFromAsset extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(19),
                   ),
-                  child: const Center(child: Icon(Icons.navigate_before_rounded)),
+                  child:
+                      const Center(child: Icon(Icons.navigate_before_rounded)),
                   onPressed: () async {
                     final PDFViewController pdfController = snapshot.data!;
                     final int currentPage =

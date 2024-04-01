@@ -1,11 +1,9 @@
-class Book {
+class BookEntity {
   final String name;
-  final String photo;
   final String path;
 
-  Book({
+  BookEntity({
     required this.name,
-    required this.photo,
     required this.path,
   });
 }

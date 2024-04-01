@@ -1,3 +1,4 @@
 class BookNamesManger {
-  static const String godIsGreat = "assets/books/godIsGreate.pdf";
+  static const String path = "assets/books/";
+  static const String godIsGreat = "${path}god_Is_Great.pdf";
 }
