@@ -17,20 +17,23 @@ class BookModel extends BookEntity {
     );
   }
 
-  static List<BookEntity> convertListToBookEntity(
-      {required List<BookModel> list}) {
-    final List<BookEntity> listToConvert = [];
-    for (var i = 0; i <= list.length; i++) {
-      listToConvert.add(BookEntity(name: list[i].name, path: list[i].path));
+  static List<BookEntity> convertListToBookEntity({
+    required List<BookModel> list,
+  }) {
+    List<BookEntity> listToConvert = [];
+    for (BookModel bookModel in list) {
+      listToConvert.add(BookEntity(name: bookModel.name, path: bookModel.path));
     }
     return listToConvert;
   }
 
-  static List<BookModel> convertListToBookModel(
-      {required List<BookEntity> list}) {
+  static List<BookModel> convertListToBookModel({
+    required List<BookEntity> list,
+  }) {
     final List<BookModel> listToConvert = [];
-    for (var i = 0; i <= list.length; i++) {
-      listToConvert.add(BookModel(name: list[i].name, path: list[i].path));
+    for (BookEntity bookEntity in list) {
+      listToConvert
+          .add(BookModel(name: bookEntity.name, path: bookEntity.path));
     }
     return listToConvert;
   }
@@ -40,7 +43,7 @@ class BookModel extends BookEntity {
     return "$globalPath$path";
   }
 
-  String getName(String underscoreName) {
+  static String getName(String underscoreName) {
     return underscoreName.replaceAll("_", " ");
   }
 }

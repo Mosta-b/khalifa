@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -21,6 +23,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
         _saveLastBook = saveLastBook,
         super(const BooksState(books: [], lastSavedPage: 0, loading: false)) {
     on<BooksEventGetAllBooks>((event, emit) async {
+      log("am getting get all books event");
       emit(
         BooksState(
           books: state.books,
@@ -31,6 +34,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
       // get all available list of pdf books
       final result = await _getAllBooks.call();
       result.fold((l) {
+        log("am getting failure in get all books event $l");
         emit(
           BooksState(
             books: state.books,
@@ -60,12 +64,14 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
           loading: true,
         ),
       );
+      log("am saving last page");
       // get specific book last page
       final result = await _getLastPageSaved.call(
         GetLastPageSavedParams(bookName: event.bookName),
       );
 
       result.fold((l) {
+        log("error happened still");
         emit(
           BooksState(
             books: state.books,

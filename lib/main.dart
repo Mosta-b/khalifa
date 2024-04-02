@@ -17,6 +17,7 @@ import 'core/services/injection_container.dart';
 
 void main() async {
   await init();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -82,7 +83,20 @@ class MainWidget extends StatelessWidget {
         } else if (authState is LocalAuthStateLoggedOut) {
           return const SignIn();
         } else if (authState is LocalAuthStatLoggedIn) {
-          return const MainView();
+          return BlocConsumer<BooksBloc, BooksState>(
+            listener: (context, bookState) {
+              if (bookState.exception != null) {
+                showErrorDialog(
+                  context,
+                  "Error Happened",
+                  "${authState.exception?.message}",
+                );
+              }
+            },
+            builder: (context, state) {
+              return const MainView();
+            },
+          );
         } else {
           return const CupertinoActivityIndicator();
         }

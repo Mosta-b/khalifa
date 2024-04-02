@@ -7,10 +7,10 @@ import 'package:khalifa/core/constant/theme/app_fonts.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
 import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 
-import '../../../core/utils/book_names_manger.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../../core/widgets/cards/issues_card.dart';
-import '../../books/presentation/views/book_view.dart';
+import '../../books/data/model/book_model.dart';
+import '../../books/presentation/widgets/book_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -120,34 +120,21 @@ class HomeView extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      height: 130,
-                      child: Card(
-                        color: Colors.blue,
-                        child: InkWell(
-                          onTap: () {
-                            context
-                                .read<BooksBloc>()
-                                .add(const BooksEventGetLastSavedPage(
-                                  bookName: BookNamesManger.godIsGreat,
-                                ));
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const BookView(
-                                  bookName: BookNamesManger.godIsGreat,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                child: BlocBuilder<BooksBloc, BooksState>(
+                  builder: (context, bookState) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: bookState.books.length,
+                      itemBuilder: (context, index) {
+                        final BookModel book = bookState.books[index];
+                        return BookCard(
+                          bookModel: book,
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],

@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:khalifa/src/books/data/model/book_model.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalBookSource {
@@ -17,22 +17,27 @@ class LocalBookSourceImplementation implements LocalBookSource {
   @override
   Future<List<BookModel>> getAllBooks() async {
     List<BookModel> pdfBooks = [];
-    // Get the application documents directory
-    Directory directory = await getApplicationDocumentsDirectory();
-    // Create a Directory object for the books directory
-    Directory booksDirectory = Directory('${directory.path}/assets/books');
-    if (booksDirectory.existsSync()) {
-      List<FileSystemEntity> files = directory.listSync(recursive: false);
-      for (FileSystemEntity file in files) {
-        if (file is File && file.path.toLowerCase().endsWith('.pdf')) {
-          String fileName =
-              file.path.split('/').last; // Extracting the file name
-          log("name = $fileName path = ${file.path} => File name and path");
-          pdfBooks.add(BookModel(name: fileName, path: file.path));
-        }
-      }
-    }
+    // Load the list of assets from the AssetManifest.json file
+    List<String> assetFiles = await rootBundle
+        .loadString('AssetManifest.json')
+        .then((String jsonString) {
+      Map<String, dynamic> manifest = json.decode(jsonString);
+      return manifest.keys
+          .where((String key) =>
+              key.startsWith('assets/books/') &&
+                  key.toLowerCase().endsWith('.pdf') ||
+              key.toLowerCase().startsWith('pdf.'))
+          .toList();
+    });
 
+    // Extract the file name and path for each PDF asset file
+    for (String assetFile in assetFiles) {
+      String fileName =
+          BookModel.getName(assetFile.split('/').last.replaceAll('.pdf', ""));
+      log("and the name of the book is $fileName, and the path is $assetFile");
+      pdfBooks.add(BookModel(name: fileName, path: assetFile));
+    }
+    log("well here is list for you $pdfBooks");
     return pdfBooks;
   }
 

@@ -17,6 +17,7 @@ class BookRepositoryImplementation implements BooksRepository {
     try {
       final List<BookModel> theListToConvert =
           await _localBookSource.getAllBooks();
+
       final List<BookEntity> finalList =
           BookModel.convertListToBookEntity(list: theListToConvert);
       return Right(finalList);

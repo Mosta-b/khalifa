@@ -17,5 +17,5 @@ class BooksState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [books];
+  List<Object?> get props => [books, loading];
 }
