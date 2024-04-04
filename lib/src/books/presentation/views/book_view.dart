@@ -42,9 +42,7 @@ class PDFViewerFromAsset extends StatelessWidget {
     return BlocBuilder<BooksBloc, BooksState>(
       builder: (context, state) {
         return PopScope(
-          onPopInvoked: (didPop) {
-            // context.read<BooksBloc>().add(BooksEventSaveLastPage(lastPage: _pageCountController., bookName: book.name));
-          },
+          onPopInvoked: (didPop) {},
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -64,8 +62,9 @@ class PDFViewerFromAsset extends StatelessWidget {
                             ),
                             child: Text(
                               snapshot.data!,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         );
@@ -95,6 +94,7 @@ class PDFViewerFromAsset extends StatelessWidget {
                 final int currentPage = state.lastSavedPage;
                 // final int currentPage =
                 //     await pdfViewController.getCurrentPage() ?? 0;
+
                 final int? pageCount = await pdfViewController.getPageCount();
                 _pageCountController.add('${currentPage + 1} - $pageCount');
               },

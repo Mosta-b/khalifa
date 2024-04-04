@@ -11,13 +11,16 @@ import 'package:khalifa/src/authentication/presentation/views/sign_in.dart';
 import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 import 'package:khalifa/src/views/main_view.dart';
 import 'package:khalifa/src/views/welcome_view.dart';
+import 'package:provider/provider.dart';
 
 import 'core/constant/Routes/routes_manager.dart';
+import 'core/extensions/bottom_navigation_bar_provider.dart';
 import 'core/services/injection_container.dart';
 
 void main() async {
   await init();
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -29,7 +32,10 @@ void main() async {
           create: (context) => sl<BooksBloc>()..add(BooksEventGetAllBooks()),
         ),
       ],
-      child: const Khalifa(),
+      child: ChangeNotifierProvider<BottomNavBarProvider>(
+        create: (context) => BottomNavBarProvider(),
+        child: const Khalifa(),
+      ),
     ),
   );
 }
@@ -51,11 +57,6 @@ class Khalifa extends StatelessWidget {
         textTheme: GoogleFonts.notoSansArabicTextTheme(),
       ),
       routes: appRoutes,
-      // supportedLocales: const [
-      //   Locale('en'),
-      //   Locale('ar'),
-      // ],
-      // locale: const Locale('ar'),
       home: const MainWidget(),
     );
   }

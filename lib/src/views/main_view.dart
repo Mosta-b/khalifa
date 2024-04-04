@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../core/extensions/bottom_navigation_bar_provider.dart';
 import 'bottom_navigation/chat_gpt.dart';
 import 'bottom_navigation/home_view.dart';
 import 'bottom_navigation/libary.dart';
@@ -10,11 +12,11 @@ class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
 
   @override
-  State<MainView> createState() => _MainViewState();
+  State<MainView> createState() => MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
-  int _page = 3;
+class MainViewState extends State<MainView> {
+  // int _page = 3;
 
   static const List<Widget> _mainWidgetViews = [
     ChatGpt(),
@@ -23,18 +25,14 @@ class _MainViewState extends State<MainView> {
     HomeView(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _page = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final int currentPage =
+        Provider.of<BottomNavBarProvider>(context).currentIndex;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorLight,
       body: Center(
-        child: _mainWidgetViews.elementAt(_page),
+        child: _mainWidgetViews.elementAt(currentPage),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -55,8 +53,10 @@ class _MainViewState extends State<MainView> {
             label: 'الرئسية',
           ),
         ],
-        currentIndex: _page,
-        onTap: _onItemTapped,
+        currentIndex: currentPage,
+        onTap: (value) {
+          onItemTapped(index: value, context: context);
+        },
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         elevation: 7,

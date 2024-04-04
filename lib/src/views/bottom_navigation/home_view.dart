@@ -7,6 +7,7 @@ import 'package:khalifa/core/constant/theme/app_fonts.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
 import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 
+import '../../../core/extensions/bottom_navigation_bar_provider.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../../core/widgets/cards/issues_card.dart';
 import '../../books/data/model/book_model.dart';
@@ -102,7 +103,8 @@ class HomeView extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            onItemTapped(context: context, index: 2),
                         icon: const Icon(
                           CupertinoIcons.arrow_left_circle,
                         ),
