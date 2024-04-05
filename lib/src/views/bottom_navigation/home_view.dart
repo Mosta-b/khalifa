@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:khalifa/core/constant/phone/phone_size.dart';
 import 'package:khalifa/core/constant/theme/app_fonts.dart';
+import 'package:khalifa/core/enums/enum.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
-import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
 
 import '../../../core/extensions/bottom_navigation_bar_provider.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../../core/widgets/cards/issues_card.dart';
-import '../../books/data/model/book_model.dart';
-import '../../books/presentation/widgets/book_card.dart';
+import '../../books/presentation/widgets/book_list.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -121,22 +119,9 @@ class HomeView extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
-                child: BlocBuilder<BooksBloc, BooksState>(
-                  builder: (context, bookState) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: bookState.books.length,
-                      itemBuilder: (context, index) {
-                        final BookModel book = bookState.books[index];
-                        return BookCard(
-                          bookModel: book,
-                        );
-                      },
-                    );
-                  },
+              const Expanded(
+                child: BookList(
+                  typeOfBooks: TypeOfBooks.all,
                 ),
               ),
             ],

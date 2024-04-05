@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/enums/enum.dart';
-import '../../../../core/services/classifey_books.dart';
+import '../../../../core/services/classify_books.dart';
+import '../../../../core/utils/get_book_cover_colors.dart';
 import '../../data/model/book_model.dart';
 import '../bloc/books_bloc.dart';
 import 'book_card.dart';
@@ -19,34 +18,106 @@ class BookList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 170,
+      // height: 170,
       child: BlocBuilder<BooksBloc, BooksState>(
         builder: (context, bookState) {
-          return ListView.builder(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: bookState.books.length,
-            itemBuilder: (context, index) {
-              final BookModel book = bookState.books[index];
-              if (typeOfBooks == TypeOfBooks.islam) {
-                log("already here");
+          if (typeOfBooks == TypeOfBooks.islam) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 11,
+                childAspectRatio: .7,
+              ),
+              shrinkWrap: true,
+              reverse: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 4,
+              // BooksTypes.getNumberOfItemsInList(
+              //   listToCheck: bookState.books,
+              //   typeOfBooks: TypeOfBooks.islam,
+              // ),
+              itemBuilder: (context, index) {
+                BookModel book = bookState.books[index];
                 final checkForName = BooksTypes.checkIfIslamBook(book.name);
+                final Color coverColor =
+                    getCoverColor(typeOfBooks: TypeOfBooks.islam);
                 if (checkForName) {
-                  log("$checkForName checking");
                   return BookCard(
                     bookModel: book,
+                    bookCoverColor: coverColor,
                   );
                 }
-              } else if (typeOfBooks == TypeOfBooks.history) {
-              } else if (typeOfBooks == TypeOfBooks.politics) {
-              } else {
+                return Container();
+              },
+            );
+          } else if (typeOfBooks == TypeOfBooks.politics) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 11,
+                childAspectRatio: .7,
+              ),
+              shrinkWrap: true,
+              reverse: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: bookState.books.length,
+              itemBuilder: (context, index) {
+                BookModel book = bookState.books[index];
+                final checkForName = BooksTypes.checkIfPoliticsBook(book.name);
+                final Color coverColor =
+                    getCoverColor(typeOfBooks: TypeOfBooks.politics);
+                if (checkForName) {
+                  return BookCard(
+                    bookModel: book,
+                    bookCoverColor: coverColor,
+                  );
+                }
+                return Container();
+              },
+            );
+          } else if (typeOfBooks == TypeOfBooks.history) {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 11,
+                childAspectRatio: .7,
+              ),
+              shrinkWrap: true,
+              reverse: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: bookState.books.length,
+              itemBuilder: (context, index) {
+                BookModel book = bookState.books[index];
+                final checkForName = BooksTypes.checkIfHistoryBook(book.name);
+                final Color coverColor =
+                    getCoverColor(typeOfBooks: TypeOfBooks.history);
+                if (checkForName) {
+                  return BookCard(
+                    bookModel: book,
+                    bookCoverColor: coverColor,
+                  );
+                }
+                return Container();
+              },
+            );
+          } else {
+            return ListView.builder(
+              reverse: true,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: bookState.books.length,
+              itemBuilder: (context, index) {
+                final BookModel book = bookState.books[index];
+                final Color coverColor =
+                    getCoverColor(typeOfBooks: TypeOfBooks.all);
                 return BookCard(
                   bookModel: book,
+                  bookCoverColor: coverColor,
                 );
-              }
-            },
-          );
+              },
+            );
+          }
         },
       ),
     );

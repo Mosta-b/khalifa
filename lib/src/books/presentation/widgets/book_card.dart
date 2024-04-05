@@ -3,12 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khalifa/src/books/data/model/book_model.dart';
 import 'package:khalifa/src/books/presentation/views/book_view.dart';
 
-import '../../../../core/utils/get_book_cover_colors.dart';
 import '../bloc/books_bloc.dart';
 
 class BookCard extends StatelessWidget {
   final BookModel bookModel;
-  const BookCard({Key? key, required this.bookModel}) : super(key: key);
+  final Color bookCoverColor;
+  const BookCard({
+    Key? key,
+    required this.bookModel,
+    required this.bookCoverColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class BookCard extends StatelessWidget {
         width: 100,
         // height: 100,
         child: Card(
-          color: getCoverColor(),
+          color: bookCoverColor,
           child: InkWell(
             onTap: () {
               context.read<BooksBloc>().add(
