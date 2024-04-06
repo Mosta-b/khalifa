@@ -29,37 +29,39 @@ class MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     final int currentPage =
         Provider.of<BottomNavBarProvider>(context).currentIndex;
-    return Scaffold(
-      // backgroundColor: Theme.of(context).primaryColorLight,
-      body: Center(
-        child: _mainWidgetViews.elementAt(currentPage),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.device_laptop),
-            label: 'الذكاء الاصطناعي',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.book_circle_fill),
-            label: 'المصحف',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.book_fill),
-            label: 'المكتبة',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.house_fill),
-            label: 'الرئسية',
-          ),
-        ],
-        currentIndex: currentPage,
-        onTap: (value) {
-          onItemTapped(index: value, context: context);
-        },
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        elevation: 7,
+    return SafeArea(
+      child: Scaffold(
+        // backgroundColor: Theme.of(context).primaryColorLight,
+        body: Center(
+          child: _mainWidgetViews.elementAt(currentPage),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.device_laptop),
+              label: 'الذكاء الاصطناعي',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.book_circle_fill),
+              label: 'المصحف',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.book_fill),
+              label: 'المكتبة',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.house_fill),
+              label: 'الرئسية',
+            ),
+          ],
+          currentIndex: currentPage,
+          onTap: (value) {
+            onItemTapped(index: value, context: context);
+          },
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+          elevation: 7,
+        ),
       ),
     );
   }

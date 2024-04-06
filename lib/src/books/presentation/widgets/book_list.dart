@@ -116,7 +116,7 @@ class BookList extends StatelessWidget {
               );
             } else {
               return ListView.builder(
-                reverse: true,
+                reverse: false,
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
