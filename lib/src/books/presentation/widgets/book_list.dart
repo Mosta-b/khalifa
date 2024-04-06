@@ -26,18 +26,19 @@ class BookList extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: 11,
-                childAspectRatio: .7,
+                mainAxisSpacing: 11,
+                childAspectRatio: .8,
               ),
               shrinkWrap: true,
-              reverse: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 4,
-              // BooksTypes.getNumberOfItemsInList(
-              //   listToCheck: bookState.books,
-              //   typeOfBooks: TypeOfBooks.islam,
-              // ),
+              itemCount: BooksTypes.getNumberOfItemsInList(
+                listToCheck: bookState.books,
+                typeOfBooks: TypeOfBooks.islam,
+              ),
               itemBuilder: (context, index) {
-                BookModel book = bookState.books[index];
+                BookModel book = BooksTypes.getListOfBookTypes(
+                    listToCheck: bookState.books,
+                    typeOfBooks: TypeOfBooks.islam)[index];
                 final checkForName = BooksTypes.checkIfIslamBook(book.name);
                 final Color coverColor =
                     getCoverColor(typeOfBooks: TypeOfBooks.islam);
@@ -58,11 +59,17 @@ class BookList extends StatelessWidget {
                 childAspectRatio: .7,
               ),
               shrinkWrap: true,
-              reverse: true,
+              reverse: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: bookState.books.length,
+              itemCount: BooksTypes.getNumberOfItemsInList(
+                listToCheck: bookState.books,
+                typeOfBooks: TypeOfBooks.politics,
+              ),
               itemBuilder: (context, index) {
-                BookModel book = bookState.books[index];
+                BookModel book = BooksTypes.getListOfBookTypes(
+                  listToCheck: bookState.books,
+                  typeOfBooks: TypeOfBooks.politics,
+                )[index];
                 final checkForName = BooksTypes.checkIfPoliticsBook(book.name);
                 final Color coverColor =
                     getCoverColor(typeOfBooks: TypeOfBooks.politics);
@@ -83,11 +90,16 @@ class BookList extends StatelessWidget {
                 childAspectRatio: .7,
               ),
               shrinkWrap: true,
-              reverse: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: bookState.books.length,
+              itemCount: BooksTypes.getNumberOfItemsInList(
+                listToCheck: bookState.books,
+                typeOfBooks: TypeOfBooks.history,
+              ),
               itemBuilder: (context, index) {
-                BookModel book = bookState.books[index];
+                BookModel book = BooksTypes.getListOfBookTypes(
+                  listToCheck: bookState.books,
+                  typeOfBooks: TypeOfBooks.history,
+                )[index];
                 final checkForName = BooksTypes.checkIfHistoryBook(book.name);
                 final Color coverColor =
                     getCoverColor(typeOfBooks: TypeOfBooks.history);

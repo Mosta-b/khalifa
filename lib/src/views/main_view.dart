@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/extensions/bottom_navigation_bar_provider.dart';
+import '../books/presentation/views/libary.dart';
 import 'bottom_navigation/chat_gpt.dart';
 import 'bottom_navigation/home_view.dart';
-import 'bottom_navigation/libary.dart';
 import 'bottom_navigation/quran.dart';
 
 class MainView extends StatefulWidget {

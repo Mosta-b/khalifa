@@ -16,37 +16,30 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0, 8.0),
-      child: SizedBox(
-        width: 100,
-        // height: 100,
-        child: Card(
-          color: bookCoverColor,
-          child: InkWell(
-            onTap: () {
-              context.read<BooksBloc>().add(
-                    BooksEventGetLastSavedPage(
-                      bookName: bookModel.name,
-                    ),
-                  );
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BookView(
-                    book: bookModel,
-                  ),
+    return Card(
+      color: bookCoverColor,
+      child: InkWell(
+        onTap: () {
+          context.read<BooksBloc>().add(
+                BooksEventGetLastSavedPage(
+                  bookName: bookModel.name,
                 ),
               );
-            },
-            child: Center(
-              child: Text(
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.center,
-                bookModel.name,
-                style: Theme.of(context).textTheme.titleSmall,
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BookView(
+                book: bookModel,
               ),
             ),
+          );
+        },
+        child: Center(
+          child: Text(
+            textDirection: TextDirection.ltr,
+            textAlign: TextAlign.center,
+            bookModel.name,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
       ),

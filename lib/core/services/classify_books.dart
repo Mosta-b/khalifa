@@ -76,4 +76,39 @@ class BooksTypes {
       return listToCheck.length;
     }
   }
+
+  static List<BookModel> getListOfBookTypes({
+    required List<BookModel> listToCheck,
+    required TypeOfBooks typeOfBooks,
+  }) {
+    List<BookModel> num = [];
+    if (typeOfBooks == TypeOfBooks.islam) {
+      for (BookModel book in listToCheck) {
+        final checkForName = BooksTypes.checkIfIslamBook(book.name);
+        if (checkForName) {
+          num.add(book);
+        }
+      }
+      log(num.toString());
+      return num;
+    } else if (typeOfBooks == TypeOfBooks.politics) {
+      for (BookModel book in listToCheck) {
+        final checkForName = BooksTypes.checkIfPoliticsBook(book.name);
+        if (checkForName) {
+          num.add(book);
+        }
+      }
+      return num;
+    } else if (typeOfBooks == TypeOfBooks.history) {
+      for (BookModel book in listToCheck) {
+        final checkForName = BooksTypes.checkIfHistoryBook(book.name);
+        if (checkForName) {
+          num.add(book);
+        }
+      }
+      return num;
+    } else {
+      return listToCheck;
+    }
+  }
 }

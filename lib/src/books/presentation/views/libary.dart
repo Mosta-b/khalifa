@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:khalifa/core/constant/phone/phone_size.dart';
 import 'package:khalifa/core/enums/enum.dart';
 
-import '../../books/presentation/widgets/book_list.dart';
+import '../widgets/book_list.dart';
 
 class Library extends StatelessWidget {
   const Library({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class Library extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorLight,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
         child: SizedBox(
           height: getScreenHeight(context) * .9,
           child: ListView(
