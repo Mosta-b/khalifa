@@ -16,30 +16,33 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: bookCoverColor,
-      child: InkWell(
-        onTap: () {
-          context.read<BooksBloc>().add(
-                BooksEventGetLastSavedPage(
-                  bookName: bookModel.name,
+    return SizedBox(
+      width: 100,
+      child: Card(
+        color: bookCoverColor,
+        child: InkWell(
+          onTap: () {
+            context.read<BooksBloc>().add(
+                  BooksEventGetLastSavedPage(
+                    bookName: bookModel.name,
+                  ),
+                );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BookView(
+                  book: bookModel,
                 ),
-              );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BookView(
-                book: bookModel,
               ),
+            );
+          },
+          child: Center(
+            child: Text(
+              textDirection: TextDirection.ltr,
+              textAlign: TextAlign.center,
+              bookModel.name,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
-          );
-        },
-        child: Center(
-          child: Text(
-            textDirection: TextDirection.ltr,
-            textAlign: TextAlign.center,
-            bookModel.name,
-            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
       ),
