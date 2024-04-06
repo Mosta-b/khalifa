@@ -30,7 +30,6 @@ class BookList extends StatelessWidget {
                   mainAxisSpacing: 11,
                   childAspectRatio: .8,
                 ),
-                reverse: false,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: BooksTypes.getNumberOfItemsInList(

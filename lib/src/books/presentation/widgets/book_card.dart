@@ -41,7 +41,10 @@ class BookCard extends StatelessWidget {
               textDirection: TextDirection.ltr,
               textAlign: TextAlign.center,
               bookModel.name,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(color: Colors.black),
             ),
           ),
         ),

@@ -30,7 +30,7 @@ class MainViewState extends State<MainView> {
     final int currentPage =
         Provider.of<BottomNavBarProvider>(context).currentIndex;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorLight,
+      // backgroundColor: Theme.of(context).primaryColorLight,
       body: Center(
         child: _mainWidgetViews.elementAt(currentPage),
       ),

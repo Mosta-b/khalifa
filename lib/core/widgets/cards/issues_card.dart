@@ -20,6 +20,7 @@ class IssuesCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           10,
         ),
+        side: BorderSide(color: Theme.of(context).primaryColor),
       ),
       child: Padding(
         padding: const EdgeInsets.all(7),

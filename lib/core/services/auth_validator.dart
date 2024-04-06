@@ -51,4 +51,25 @@ class HandleValidation {
       return "Le numéro de téléphone n'est pas valide";
     }
   }
+
+  bool validatePageNumber(String inputText, int maxPageLimit) {
+    if (inputText.isEmpty) {
+      // Text is empty
+      return false;
+    }
+
+    // Check if inputText can be parsed as an integer
+    try {
+      int pageNumber = int.parse(inputText);
+      if (pageNumber < 1 || pageNumber > maxPageLimit) {
+        // Page number is out of range
+        return false;
+      }
+      // Valid page number
+      return true;
+    } catch (e) {
+      // Failed to parse as integer
+      return false;
+    }
+  }
 }
