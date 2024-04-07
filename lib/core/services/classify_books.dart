@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:khalifa/core/enums/enum.dart';
 
 import '../../src/books/data/model/book_model.dart';
@@ -16,7 +14,6 @@ class BooksTypes {
 
   static bool checkIfIslamBook(String bookName) {
     for (String keyword in listOfDeen) {
-      log("here its the name of the book $bookName");
       if (bookName.toLowerCase().contains(keyword.toLowerCase())) {
         return true;
       }
@@ -54,7 +51,7 @@ class BooksTypes {
           num++;
         }
       }
-      log(num.toString());
+
       return num;
     } else if (typeOfBooks == TypeOfBooks.politics) {
       for (BookModel book in listToCheck) {
@@ -89,7 +86,7 @@ class BooksTypes {
           num.add(book);
         }
       }
-      log(num.toString());
+
       return num;
     } else if (typeOfBooks == TypeOfBooks.politics) {
       for (BookModel book in listToCheck) {

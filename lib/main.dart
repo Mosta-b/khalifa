@@ -51,10 +51,12 @@ class Khalifa extends StatelessWidget {
       theme: FlexThemeData.light(
         scheme: FlexScheme.greenM3,
         textTheme: GoogleFonts.notoSansArabicTextTheme(),
+        scaffoldBackground: Colors.teal,
       ),
       darkTheme: FlexThemeData.dark(
         scheme: FlexScheme.greenM3,
         textTheme: GoogleFonts.notoSansArabicTextTheme(),
+        scaffoldBackground: Colors.teal,
       ),
       routes: appRoutes,
       home: const MainWidget(),

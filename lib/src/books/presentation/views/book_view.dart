@@ -98,9 +98,6 @@ class PDFViewerFromAsset extends StatelessWidget {
                 onViewCreated: (PDFViewController pdfViewController) async {
                   _pdfViewController.complete(pdfViewController);
                   final int currentPage = state.lastSavedPage;
-                  // final int currentPage =
-                  //     await pdfViewController.getCurrentPage() ?? 0;
-
                   final int? pageCount = await pdfViewController.getPageCount();
                   _pageCountController.add('${currentPage + 1} - $pageCount');
                 },

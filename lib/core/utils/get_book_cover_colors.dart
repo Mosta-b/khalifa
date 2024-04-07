@@ -23,7 +23,7 @@ Color getCoverColor({required TypeOfBooks typeOfBooks}) {
     Colors.white38
   ];
   final List<Color> politicsColorList = [
-    Colors.teal,
+    Colors.teal.shade900,
     Colors.tealAccent,
     Colors.blue,
     Colors.blueAccent,
@@ -34,11 +34,14 @@ Color getCoverColor({required TypeOfBooks typeOfBooks}) {
   var rng = Random();
   final randomNumber = rng.nextInt(colorList.length);
   if (typeOfBooks == TypeOfBooks.islam) {
-    return islamicColorList[randomNumber];
+    final randomNumberForIslamicBook = rng.nextInt(islamicColorList.length);
+    return islamicColorList[randomNumberForIslamicBook];
   } else if (typeOfBooks == TypeOfBooks.politics) {
-    return politicsColorList[randomNumber];
+    final randomNumberForPolitics = rng.nextInt(politicsColorList.length);
+    return politicsColorList[randomNumberForPolitics];
   } else if (typeOfBooks == TypeOfBooks.history) {
-    return historyColorList[randomNumber];
+    final randomNumberForHistory = rng.nextInt(historyColorList.length);
+    return historyColorList[randomNumberForHistory];
   } else {
     return colorList[randomNumber];
   }

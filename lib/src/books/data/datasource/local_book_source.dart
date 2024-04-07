@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:khalifa/src/books/data/model/book_model.dart';
@@ -34,10 +33,10 @@ class LocalBookSourceImplementation implements LocalBookSource {
     for (String assetFile in assetFiles) {
       String fileName =
           BookModel.getName(assetFile.split('/').last.replaceAll('.pdf', ""));
-      log("and the name of the book is $fileName, and the path is $assetFile");
+
       pdfBooks.add(BookModel(name: fileName, path: assetFile));
     }
-    log("well here is list for you $pdfBooks");
+
     return pdfBooks;
   }
 

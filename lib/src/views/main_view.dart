@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/extensions/bottom_navigation_bar_provider.dart';
@@ -16,8 +17,6 @@ class MainView extends StatefulWidget {
 }
 
 class MainViewState extends State<MainView> {
-  // int _page = 3;
-
   static const List<Widget> _mainWidgetViews = [
     ChatGpt(),
     Quran(),
@@ -31,27 +30,29 @@ class MainViewState extends State<MainView> {
         Provider.of<BottomNavBarProvider>(context).currentIndex;
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Theme.of(context).primaryColorLight,
         body: Center(
           child: _mainWidgetViews.elementAt(currentPage),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedFontSize: 15,
+          type: BottomNavigationBarType.shifting,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.device_laptop),
               label: 'الذكاء الاصطناعي',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.book_circle_fill),
-              label: 'المصحف',
+              icon: Icon(CupertinoIcons.calendar_today),
+              label: 'تاريخ الهجري',
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.book_fill),
               label: 'المكتبة',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.house_fill),
-              label: 'الرئسية',
+              icon: Icon(FlutterIslamicIcons.solidCrescentMoon),
+              label: 'الرئيسية',
+              // backgroundColor: Colors.teal,
             ),
           ],
           currentIndex: currentPage,
@@ -59,7 +60,7 @@ class MainViewState extends State<MainView> {
             onItemTapped(index: value, context: context);
           },
           unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
+          showUnselectedLabels: false,
           elevation: 7,
         ),
       ),

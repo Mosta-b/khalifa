@@ -19,6 +19,11 @@ class BookCard extends StatelessWidget {
     return SizedBox(
       width: 100,
       child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(color: Colors.white10),
+          borderRadius: BorderRadius.circular(10),
+        ),
         color: bookCoverColor,
         child: InkWell(
           onTap: () {
