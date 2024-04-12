@@ -1,0 +1,1 @@
+class QadayaExceptionGenericException implements Exception {}

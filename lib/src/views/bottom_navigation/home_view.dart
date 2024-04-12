@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:khalifa/core/constant/phone/phone_size.dart';
 import 'package:khalifa/core/constant/theme/app_fonts.dart';
 import 'package:khalifa/core/enums/enum.dart';
 import 'package:khalifa/core/widgets/addspace/add_height_add_width.dart';
+import 'package:khalifa/src/qadaya/presentation/manager/qadiya_bloc.dart';
 
 import '../../../core/extensions/bottom_navigation_bar_provider.dart';
 import '../../../core/utils/get_wisdom.dart';
@@ -72,26 +76,27 @@ class HomeView extends StatelessWidget {
               const AddHeight(height: 20),
               SizedBox(
                 height: 260,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    IssuesCard(
-                      title: "عصي اوامر الله و نبيه صلى الله عليه و سلم",
-                      subTitle: "اولوية اولى",
-                      onPressed: () {},
-                    ),
-                    IssuesCard(
-                      title: "نقص ارزاق و معاناة مع الفقر",
-                      subTitle: "ليس كل دول",
-                      onPressed: () {},
-                    ),
-                    IssuesCard(
-                      title: "انتشار المنافقين",
-                      subTitle: "حلول ايقاف المنافقين",
-                      onPressed: () {},
-                    ),
-                  ],
+                child: BlocConsumer<QadiyaBloc, QadiyaState>(
+                  listener: (context, qadayaState) {
+                    if (qadayaState.exception != null) {
+                      log("this happened in qadaya bloc ${qadayaState.exception}");
+                    }
+                  },
+                  builder: (context, qadayaState) {
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: qadayaState.existingQadaya.length,
+                      itemBuilder: (context, index) {
+                        final qadaya = qadayaState.existingQadaya[index];
+                        return IssuesCard(
+                          title: "عصي اوامر الله و نبيه صلى الله عليه و سلم",
+                          subTitle: "اولوية اولى",
+                          onPressed: () {},
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
               const AddHeight(height: 20),

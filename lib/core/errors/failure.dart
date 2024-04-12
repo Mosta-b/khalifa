@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:khalifa/core/errors/qadaya_exception.dart';
 
 import 'auth_exceptions.dart';
 import 'book_exception.dart';
@@ -107,5 +108,21 @@ class LocalDataBaseFailure extends Failure {
     log('$exception => LocalDataBaseFailure Object');
     return LocalDataBaseFailure(
         exception: Exception(), message: 'sqlite Error');
+  }
+}
+
+class QadayaException extends Failure {
+  const QadayaException({required super.message, required super.exception});
+  static Failure handleQadayaFailure(Exception exception) {
+    log('$exception => QadayaException exception');
+    return LocalDataBaseFailure(
+        exception: QadayaExceptionGenericException(),
+        message: 'QadayaException Error');
+  }
+
+  static Failure handleQadayaObjectFailure(Object exception) {
+    log('$exception => handleQadayaObjectFailure Object');
+    return LocalDataBaseFailure(
+        exception: QadayaExceptionGenericException(), message: 'Qadaya Error');
   }
 }

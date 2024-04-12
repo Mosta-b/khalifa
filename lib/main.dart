@@ -9,6 +9,7 @@ import 'package:khalifa/core/dialogs/error_dialogue.dart';
 import 'package:khalifa/src/authentication/presentation/bloc/local_auth_bloc.dart';
 import 'package:khalifa/src/authentication/presentation/views/sign_in.dart';
 import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
+import 'package:khalifa/src/qadaya/presentation/manager/qadiya_bloc.dart';
 import 'package:khalifa/src/views/main_view.dart';
 import 'package:khalifa/src/views/welcome_view.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,10 @@ void main() async {
         ),
         BlocProvider<BooksBloc>(
           create: (context) => sl<BooksBloc>()..add(BooksEventGetAllBooks()),
+        ),
+        BlocProvider<QadiyaBloc>(
+          create: (context) =>
+              sl<QadiyaBloc>()..add(const QadiyaEventGetAllQadaya()),
         ),
       ],
       child: ChangeNotifierProvider<BottomNavBarProvider>(

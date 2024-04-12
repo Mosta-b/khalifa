@@ -14,9 +14,20 @@ import 'package:khalifa/src/books/domain/usecases/get_all_books.dart';
 import 'package:khalifa/src/books/domain/usecases/get_last_page_saved.dart';
 import 'package:khalifa/src/books/domain/usecases/save_last_page.dart';
 import 'package:khalifa/src/books/presentation/bloc/books_bloc.dart';
+import 'package:khalifa/src/qadaya/data/data_sources/qadaya_local_data_source.dart';
+import 'package:khalifa/src/qadaya/data/repositories/qadaya_repository_implementation.dart';
+import 'package:khalifa/src/qadaya/domain/repositories/qadaya_repository.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/create_new_solution.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/delete_qadiya.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/delete_solution.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/get_list_of_available_qadaya.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/get_list_of_available_solutions.dart';
+import 'package:khalifa/src/qadaya/domain/use_cases/save_last_edited_solution.dart';
+import 'package:khalifa/src/qadaya/presentation/manager/qadiya_bloc.dart';
 
 import '../../src/authentication/data/datasource/authentication_local_data_source.dart';
 import '../../src/books/data/repositories/book_repository_implementation.dart';
+import '../../src/qadaya/domain/use_cases/create_new_qadiya.dart';
 
 final sl = GetIt.instance;
 
@@ -69,4 +80,29 @@ Future<void> init() async {
     // Data Source
     ..registerLazySingleton<LocalBookSource>(
         () => LocalBookSourceImplementation());
+
+  sl
+    // register Bloc
+    ..registerFactory(() => QadiyaBloc(
+        createNewQadiya: sl(),
+        createNewSolution: sl(),
+        deleteQadiya: sl(),
+        deleteSolution: sl(),
+        getListOfAvailableQadaya: sl(),
+        getListOfAvailableSolutions: sl(),
+        saveLastEditedSolution: sl()))
+    // register usecase
+    ..registerLazySingleton(() => CreateNewQadiya(sl()))
+    ..registerLazySingleton(() => CreateNewSolution(sl()))
+    ..registerLazySingleton(() => DeleteQadiya(sl()))
+    ..registerLazySingleton(() => DeleteSolution(sl()))
+    ..registerLazySingleton(() => GetListOfAvailableQadaya(sl()))
+    ..registerLazySingleton(() => GetListOfAvailableSolutions(sl()))
+    ..registerLazySingleton(() => SaveLastEditedSolution(sl()))
+    // repository
+    ..registerLazySingleton<QadayaRepository>(
+        () => QadayaRepositoryImplementation(sl()))
+    // Data Source
+    ..registerLazySingleton<QadayaLocalDataSource>(
+        () => QadayaLocalDataSourceImplementation());
 }
