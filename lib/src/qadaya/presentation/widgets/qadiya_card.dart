@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class IssuesCard extends StatelessWidget {
+class QadiyaCard extends StatelessWidget {
   final String title;
   final String subTitle;
 
   final Function() onPressed;
-  const IssuesCard({
+  const QadiyaCard({
     Key? key,
     required this.title,
     required this.subTitle,

@@ -35,9 +35,6 @@ class QadiyaBloc extends Bloc<QadiyaEvent, QadiyaState> {
         _saveLastEditedSolution = saveLastEditedSolution,
         super(const QadiyaState(
             existingQadaya: [], exception: null, isLoading: true)) {
-    on<QadiyaEvent>((event, emit) {
-      // TODO: implement event handler
-    });
     on<QadiyaEventGetAllQadaya>(
       (event, emit) async {
         log("am searching you now");
@@ -54,6 +51,7 @@ class QadiyaBloc extends Bloc<QadiyaEvent, QadiyaState> {
           );
         }, (r) {
           if (r != null) {
+            log("am here so it does have qadaya");
             final listToConvert =
                 QadiyaModel.convertToListOfQadayaModel(qadaya: r);
             emit(
@@ -65,6 +63,7 @@ class QadiyaBloc extends Bloc<QadiyaEvent, QadiyaState> {
               ),
             );
           } else {
+            log("no it doesn't list should be empty");
             emit(
               QadiyaState(
                 existingQadaya: [],
@@ -74,6 +73,40 @@ class QadiyaBloc extends Bloc<QadiyaEvent, QadiyaState> {
               ),
             );
           }
+        });
+      },
+    );
+    on<QadiyaEventAddNewQadiya>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _createNewQadiya
+            .call(CreateNewQadiyaParams(qadiya: event.qadiya));
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: state.existingSolutions,
+              isLoading: true,
+            ),
+          );
+          add(const QadiyaEventGetAllQadaya());
         });
       },
     );

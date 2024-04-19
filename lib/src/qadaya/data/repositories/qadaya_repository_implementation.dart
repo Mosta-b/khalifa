@@ -14,12 +14,16 @@ class QadayaRepositoryImplementation implements QadayaRepository {
   QadayaRepositoryImplementation(this.qadayaLocalDataSource);
   @override
   ResultFuture<void> createNewQadiya({required Qadiya qadiya}) async {
-    try {} on Exception catch (e) {
+    try {
+      final QadiyaModel qadiyaModel =
+          QadiyaModel.convertToQadiyaModel(qadiyaModel: qadiya);
+      await qadayaLocalDataSource.insertQadiya(qadiyaModel);
+      return const Right(null);
+    } on Exception catch (e) {
       return Left(QadayaException.handleQadayaFailure(e));
     } catch (e) {
       return Left(QadayaException.handleQadayaObjectFailure(e));
     }
-    throw UnimplementedError();
   }
 
   @override

@@ -12,6 +12,16 @@ class QadiyaModel extends Qadiya {
     };
   }
 
+  static Qadiya convertToQadiyaEntity({required QadiyaModel qadiyaModel}) {
+    return Qadiya(
+        qadiyaTitle: qadiyaModel.qadiyaTitle, priority: qadiyaModel.priority);
+  }
+
+  static QadiyaModel convertToQadiyaModel({required Qadiya qadiyaModel}) {
+    return QadiyaModel(
+        qadiyaTitle: qadiyaModel.qadiyaTitle, priority: qadiyaModel.priority);
+  }
+
   static List<Qadiya> convertToListOfQadaya(
       {required List<QadiyaModel> qadaya}) {
     List<Qadiya> finaList = [];

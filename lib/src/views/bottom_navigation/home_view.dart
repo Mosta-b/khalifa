@@ -12,8 +12,9 @@ import 'package:khalifa/src/qadaya/presentation/manager/qadiya_bloc.dart';
 
 import '../../../core/extensions/bottom_navigation_bar_provider.dart';
 import '../../../core/utils/get_wisdom.dart';
-import '../../../core/widgets/cards/issues_card.dart';
 import '../../books/presentation/widgets/book_list.dart';
+import '../../qadaya/presentation/widgets/add_qadiya.dart';
+import '../../qadaya/presentation/widgets/qadiya_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -70,7 +71,7 @@ class HomeView extends StatelessWidget {
               ),
               const AddHeight(height: 20),
               Text(
-                "قضايا مستعجلة على الخليفة ان ينظر فيها",
+                "قضايا مستعجلة على المصلح ان ينظر فيها",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const AddHeight(height: 20),
@@ -84,16 +85,36 @@ class HomeView extends StatelessWidget {
                   },
                   builder: (context, qadayaState) {
                     return ListView.builder(
+                      shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       physics: const BouncingScrollPhysics(),
-                      itemCount: qadayaState.existingQadaya.length,
+                      itemCount: qadayaState.existingQadaya.isEmpty
+                          ? 1
+                          : qadayaState.existingQadaya.length,
                       itemBuilder: (context, index) {
-                        final qadaya = qadayaState.existingQadaya[index];
-                        return IssuesCard(
-                          title: "عصي اوامر الله و نبيه صلى الله عليه و سلم",
-                          subTitle: "اولوية اولى",
-                          onPressed: () {},
-                        );
+                        if (qadayaState.existingQadaya.isEmpty) {
+                          return const AddQadiya();
+                        } else if (index ==
+                            qadayaState.existingQadaya.length - 1) {
+                          final qadaya = qadayaState.existingQadaya[index];
+                          return Column(
+                            children: [
+                              QadiyaCard(
+                                title: qadaya.qadiyaTitle,
+                                subTitle: "${qadaya.priority} اولوية ",
+                                onPressed: () {},
+                              ),
+                              const AddQadiya(),
+                            ],
+                          );
+                        } else {
+                          final qadaya = qadayaState.existingQadaya[index];
+                          return QadiyaCard(
+                            title: qadaya.qadiyaTitle,
+                            subTitle: "${qadaya.priority} اولوية ",
+                            onPressed: () {},
+                          );
+                        }
                       },
                     );
                   },

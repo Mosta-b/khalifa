@@ -3,7 +3,7 @@ part of 'qadiya_bloc.dart';
 @immutable
 class QadiyaState extends Equatable {
   final List<QadiyaModel> existingQadaya;
-  final List<QadiyaModel>? existingSolutions;
+  final List<SolutionModel>? existingSolutions;
   final bool isLoading;
   final Failure? exception;
   const QadiyaState({
