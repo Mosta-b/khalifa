@@ -23,8 +23,12 @@ class QadiyaEventUpdateSolution extends QadiyaEvent {
 
 class QadiyaEventAddNewSolution extends QadiyaEvent {
   final SolutionModel solution;
+  final QadiyaModel qadiyaModel;
 
-  const QadiyaEventAddNewSolution({required this.solution});
+  const QadiyaEventAddNewSolution({
+    required this.solution,
+    required this.qadiyaModel,
+  });
 }
 
 class QadiyaEventAddNewQadiya extends QadiyaEvent {

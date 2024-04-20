@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:khalifa/core/errors/failure.dart';
 import 'package:khalifa/src/qadaya/data/models/qadiya_model.dart';
 import 'package:khalifa/src/qadaya/data/models/solution_model.dart';
@@ -12,7 +13,6 @@ import 'package:khalifa/src/qadaya/domain/use_cases/delete_solution.dart';
 import 'package:khalifa/src/qadaya/domain/use_cases/get_list_of_available_qadaya.dart';
 import 'package:khalifa/src/qadaya/domain/use_cases/get_list_of_available_solutions.dart';
 import 'package:khalifa/src/qadaya/domain/use_cases/save_last_edited_solution.dart';
-import 'package:meta/meta.dart';
 
 part 'qadiya_event.dart';
 part 'qadiya_state.dart';
@@ -103,7 +103,187 @@ class QadiyaBloc extends Bloc<QadiyaEvent, QadiyaState> {
               existingQadaya: state.existingQadaya,
               exception: null,
               existingSolutions: state.existingSolutions,
-              isLoading: true,
+              isLoading: false,
+            ),
+          );
+          add(const QadiyaEventGetAllQadaya());
+        });
+      },
+    );
+    on<QadiyaEventGetAllSolutions>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _getListOfAvailableSolutions
+            .call(GetListOfAvailableSolutionsParams(qadiya: event.qadiya));
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          final List<SolutionModel> convertedList = r != null
+              ? SolutionModel.convertToListOfSolutionModel(solutions: r)
+              : [];
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: convertedList,
+              isLoading: false,
+            ),
+          );
+        });
+      },
+    );
+    on<QadiyaEventUpdateSolution>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _saveLastEditedSolution
+            .call(SaveLastEditedSolutionParams(solution: event.solution));
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        });
+      },
+    );
+    on<QadiyaEventAddNewSolution>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _createNewSolution.call(
+          CreateNewSolutionParams(
+            qadiya: event.qadiyaModel,
+            solution: event.solution,
+          ),
+        );
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        });
+      },
+    );
+    on<QadiyaEventDeleteSolution>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _deleteSolution.call(
+          DeleteSolutionParams(
+            solution: event.solution,
+          ),
+        );
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+          add(const QadiyaEventGetAllQadaya());
+        });
+      },
+    );
+    on<QadiyaEventDeleteQadiya>(
+      (event, emit) async {
+        emit(
+          QadiyaState(
+            existingQadaya: state.existingQadaya,
+            exception: null,
+            existingSolutions: state.existingSolutions,
+            isLoading: true,
+          ),
+        );
+        final result = await _deleteQadiya.call(
+          DeleteQadiyaParams(
+            qadiya: event.qadiya,
+          ),
+        );
+        result.fold((l) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: l,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
+            ),
+          );
+        }, (r) {
+          emit(
+            QadiyaState(
+              existingQadaya: state.existingQadaya,
+              exception: null,
+              existingSolutions: state.existingSolutions,
+              isLoading: false,
             ),
           );
           add(const QadiyaEventGetAllQadaya());

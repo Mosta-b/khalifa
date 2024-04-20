@@ -22,39 +22,69 @@ class SolutionModel extends Solution {
     };
   }
 
-  List<Solution> convertToListOfSolutions({
+  static Solution convertSolutionModelToSolution({
+    required SolutionModel solutionModel,
+  }) {
+    return Solution(
+      id: solutionModel.id,
+      title: solutionModel.title,
+      solution: solutionModel.solution,
+      images: solutionModel.images,
+      topics: solutionModel.topics,
+    );
+  }
+
+  static SolutionModel convertSolutionToSolutionModel({
+    required Solution solution,
+  }) {
+    return SolutionModel(
+      id: solution.id,
+      title: solution.title,
+      solution: solution.solution,
+      images: solution.images,
+      topics: solution.topics,
+    );
+  }
+
+  static List<Solution> convertToListOfSolutions({
     required List<SolutionModel> solutions,
   }) {
     List<Solution> finaList = [];
-    for (SolutionModel solution in solutions) {
-      finaList.add(
-        Solution(
-          id: solution.id,
-          title: solution.title,
-          solution: solution.solution,
-          images: solution.images,
-          topics: solution.topics,
-        ),
-      );
+    if (solutions.isNotEmpty) {
+      for (SolutionModel solution in solutions) {
+        finaList.add(
+          Solution(
+            id: solution.id,
+            title: solution.title,
+            solution: solution.solution,
+            images: solution.images,
+            topics: solution.topics,
+          ),
+        );
+      }
     }
+
     return finaList;
   }
 
-  List<SolutionModel> convertToListOfSolutionModel({
+  static List<SolutionModel> convertToListOfSolutionModel({
     required List<Solution> solutions,
   }) {
     List<SolutionModel> finaList = [];
-    for (Solution solution in solutions) {
-      finaList.add(
-        SolutionModel(
-          id: solution.id,
-          title: solution.title,
-          solution: solution.solution,
-          images: solution.images,
-          topics: solution.topics,
-        ),
-      );
+    if (solutions.isNotEmpty) {
+      for (Solution solution in solutions) {
+        finaList.add(
+          SolutionModel(
+            id: solution.id,
+            title: solution.title,
+            solution: solution.solution,
+            images: solution.images,
+            topics: solution.topics,
+          ),
+        );
+      }
     }
+
     return finaList;
   }
 }
