@@ -42,7 +42,6 @@ class QadayaRepositoryImplementation implements QadayaRepository {
     } catch (e) {
       return Left(QadayaException.handleQadayaObjectFailure(e));
     }
-    throw UnimplementedError();
   }
 
   @override

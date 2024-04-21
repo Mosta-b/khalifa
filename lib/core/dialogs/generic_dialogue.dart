@@ -11,7 +11,7 @@ Future<T?> showGenericDialog<T>({
   final options = optionBuilder();
   return showCupertinoModalPopup(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: true,
     builder: (context) {
       return Container(
         width: double.infinity,

@@ -13,6 +13,7 @@ import 'package:khalifa/src/qadaya/presentation/manager/qadiya_bloc.dart';
 import '../../../core/extensions/bottom_navigation_bar_provider.dart';
 import '../../../core/utils/get_wisdom.dart';
 import '../../books/presentation/widgets/book_list.dart';
+import '../../qadaya/presentation/pages/qadiya_view.dart';
 import '../../qadaya/presentation/widgets/add_qadiya.dart';
 import '../../qadaya/presentation/widgets/qadiya_card.dart';
 
@@ -102,7 +103,21 @@ class HomeView extends StatelessWidget {
                               QadiyaCard(
                                 title: qadaya.qadiyaTitle,
                                 subTitle: "${qadaya.priority} اولوية ",
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.read<QadiyaBloc>().add(
+                                        QadiyaEventGetAllSolutions(
+                                          qadiya: qadaya,
+                                        ),
+                                      );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => QadiyaView(
+                                        qadiya: qadaya,
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                               const AddQadiya(),
                             ],

@@ -38,8 +38,8 @@ class MainViewState extends State<MainView> {
           type: BottomNavigationBarType.shifting,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.device_laptop),
-              label: 'الذكاء الاصطناعي',
+              icon: Icon(CupertinoIcons.person_3_fill),
+              label: 'شخصيات',
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.calendar_today),
