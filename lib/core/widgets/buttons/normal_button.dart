@@ -21,8 +21,8 @@ class NormalButton extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         // backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        fixedSize: MaterialStateProperty.all<Size>(const Size.fromWidth(200)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        fixedSize: WidgetStateProperty.all<Size>(const Size.fromWidth(200)),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           const RoundedRectangleBorder(
             side: BorderSide.none,
             borderRadius: BorderRadius.all(
